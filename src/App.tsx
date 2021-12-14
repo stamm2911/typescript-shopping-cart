@@ -5,12 +5,10 @@ import { makeStyles } from '@mui/styles';
 const useStyles = makeStyles({
   root: {
     "& .MuiLinearProgress-barColorPrimary": {
-      backgroundColor: "green",
+      backgroundColor: "yellow",
     },
   },
 });
-
-
 
 interface ProductsDataType {
   id: number,
@@ -43,7 +41,7 @@ function App() {
 
   return (
     <div>
-      {isLoading ? 'hhh' : <LinearProgress className={classes.root} sx={{ width: 900, backgroundColor: 'red' }} />}
+      {isLoading ? <LinearProgress className={classes.root} sx={{ width: 900, backgroundColor: 'red' }} /> : String(data)}
     </div>
   );
 }
