@@ -1,6 +1,16 @@
 import { useQuery } from 'react-query'
+import LinearProgress from '@mui/material/LinearProgress';
+import { makeStyles } from '@mui/styles';
 
-interface fetchDataType {
+const useStyles = makeStyles({
+  root: {
+    "& .MuiLinearProgress-barColorPrimary": {
+      backgroundColor: "yellow",
+    },
+  },
+});
+
+interface ProductsDataType {
   id: number,
   category: string,
   description: string,
@@ -12,18 +22,26 @@ interface fetchDataType {
 
 const url: string = 'https://fakestoreapi.com/products'
 
-const fetchData = async () => {
-  const fetchRestaurantData = await fetch(url)
-  const data = await fetchRestaurantData.json()
-  console.log(data)
+const getProducts = async (): Promise<ProductsDataType[] | undefined> => {
+  try {
+    const restaurantData = await fetch(url)
+    const jsonData = await restaurantData.json()
+    return jsonData
+  } catch (error) {
+    console.log(error)
+  }
 }
 
-fetchData()
 
 function App() {
+  const classes = useStyles();
+  const { data, isLoading, error } = useQuery<ProductsDataType[] | undefined>('products', getProducts)
+
+  console.log(data)
+
   return (
     <div>
-      start
+      {isLoading ? <LinearProgress className={classes.root} sx={{ width: 900, backgroundColor: 'red' }} /> : String(data)}
     </div>
   );
 }
