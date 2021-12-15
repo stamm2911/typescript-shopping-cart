@@ -1,6 +1,7 @@
 import { useQuery } from 'react-query'
 import LinearProgress from '@mui/material/LinearProgress';
 import { makeStyles } from '@mui/styles';
+import Item from './Components/Item/Item.component'
 
 const useStyles = makeStyles({
   root: {
@@ -10,7 +11,7 @@ const useStyles = makeStyles({
   },
 });
 
-interface ProductsDataType {
+export interface ProductsDataType {
   id: number,
   category: string,
   description: string,
@@ -41,7 +42,11 @@ function App() {
 
   return (
     <div>
-      {isLoading ? <LinearProgress className={classes.root} sx={{ width: 900, backgroundColor: 'red' }} /> : String(data)}
+      {isLoading ? <LinearProgress className={classes.root} sx={{ width: 900, backgroundColor: 'red' }} /> : error ? 'Oops, something went wrong!'
+        : data?.map(item => {
+          return <Item key={item.id} item={item}/>
+        })
+      }
     </div>
   );
 }
