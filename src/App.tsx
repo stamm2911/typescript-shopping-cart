@@ -2,6 +2,7 @@ import { useQuery } from 'react-query'
 import LinearProgress from '@mui/material/LinearProgress';
 import { makeStyles } from '@mui/styles';
 import Item from './Components/Item/Item.component'
+import Grid from '@mui/material/Grid'
 
 const useStyles = makeStyles({
   root: {
@@ -40,14 +41,20 @@ function App() {
 
   console.log(data)
 
+  if (isLoading) return <LinearProgress className={classes.root} sx={{ width: 900, backgroundColor: 'red' }} />
+  if (error) return <h1>Opps, something is wrong!</h1>
+
   return (
-    <div>
-      {isLoading ? <LinearProgress className={classes.root} sx={{ width: 900, backgroundColor: 'red' }} /> : error ? 'Oops, something went wrong!'
-        : data?.map(item => {
-          return <Item key={item.id} item={item}/>
-        })
+    <Grid container justifyContent='center'>
+      {data?.map(item => {
+        return (
+          // <Grid item xs={1} sx={{margin:1, backgroundColor: 'green' }}>
+            <Item key={item.id} item={item} />
+          // </Grid>
+        )
+      })
       }
-    </div>
+    </Grid>
   );
 }
 
