@@ -45,12 +45,12 @@ function App() {
   if (error) return <h1>Opps, something is wrong!</h1>
 
   return (
-    <Grid container justifyContent='center'>
+    <Grid container spacing={5}>
       {data?.map(item => {
         return (
-          // <Grid item xs={1} sx={{margin:1, backgroundColor: 'green' }}>
+          <Grid item xs={12} sm={4} >
             <Item key={item.id} item={item} />
-          // </Grid>
+          </Grid>
         )
       })
       }
